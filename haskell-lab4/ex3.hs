@@ -63,6 +63,14 @@ flattenBTPostorder (NodeBT n lt rt) = flattenBTPostorder lt ++ [n] ++ flattenBTP
 
 
 
--- mapBT :: (a -> b) -> BinTree a -> BinTree b -- funkcja map dla drzewa binarnego
--- insert :: Ord a => a -> BinTree a -> BinTree a -- insert element into BinTree
+--mapBT :: (a -> b) -> BinTree a -> BinTree b -- funkcja map dla drzewa binarnego
+
+
+
+
+--insert :: Ord a => a -> BinTree a -> BinTree a -- insert element into BinTree
+
+
+
+
 -- list2BST :: Ord a => [a] -> BinTree a -- list to Binary Search Tree (BST)
