@@ -64,12 +64,20 @@ flattenBTPostorder (NodeBT n lt rt) = flattenBTPostorder lt ++ [n] ++ flattenBTP
 
 
 --mapBT :: (a -> b) -> BinTree a -> BinTree b -- funkcja map dla drzewa binarnego
-
+-- mapBT :: (a->b) -> BinTree a -> BinTree b
+-- mapBT f EmptyBT = EmptyBT
+-- mapBT f (NodeBT n lt rt) = NodeBT (f n) (mapBT lt) (mapBT rt)
 
 
 
 --insert :: Ord a => a -> BinTree a -> BinTree a -- insert element into BinTree
 
+insert :: Ord a => a -> BinTree a -> BinTree a
+insert x EmptyBT = NodeBT x EmptyBT EmptyBT
+insert x (NodeBT e lt rt) 
+  | x == e = NodeBT e lt rt
+  | x < e = insert x lt
+  | otherwise = insert x rt
 
 
 
