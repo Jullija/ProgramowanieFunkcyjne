@@ -42,37 +42,25 @@ flattenBTPreorder (NodeBT n lt rt) = [n] ++ flattenBTPreorder lt ++ flattenBTPre
 
 
 
-
-quicksort :: Ord a => [a] -> [a]
-quicksort [] = []
-quicksort (x:xs) = quicksort (leftPart xs) ++ [x] ++ quicksort (rightPart xs)
- where
-   leftPart  xs = filter ( <= x) (xs)
-   rightPart xs = filter ( > x) (xs)
-
-
 flattenBTInorder :: Ord a => BinTree a -> [a]  -- napisać trzy wersje: preorder, inorder, postorder
 flattenBTInorder EmptyBT = []
-flattenBTInorder (NodeBT n lt rt) = quicksort $ ([n] ++ flattenBTPreorder lt ++ flattenBTPreorder rt)
+flattenBTInorder (NodeBT n lt rt) =  flattenBTPreorder lt ++ [n] ++ flattenBTPreorder rt
 
 
 
 flattenBTPostorder ::  BinTree a -> [a]  -- napisać trzy wersje: preorder, inorder, postorder
 flattenBTPostorder EmptyBT = []
-flattenBTPostorder (NodeBT n lt rt) = flattenBTPostorder lt ++ [n] ++ flattenBTPostorder rt
+flattenBTPostorder (NodeBT n lt rt) = flattenBTPostorder lt ++ flattenBTPostorder rt ++ [n]
 
 
 
---mapBT :: (a -> b) -> BinTree a -> BinTree b -- funkcja map dla drzewa binarnego
--- mapBT :: (a->b) -> BinTree a -> BinTree b
--- mapBT f EmptyBT = EmptyBT
--- mapBT f (NodeBT n lt rt) = NodeBT (f n) (mapBT lt) (mapBT rt)
+mapBT :: (a -> b) -> BinTree a -> BinTree b -- funkcja map dla drzewa binarnego
+mapBT f EmptyBT = EmptyBT
+mapBT f (NodeBT n lt rt) = NodeBT (f n) (mapBT f lt) (mapBT f rt)
 
 
 
---insert :: Ord a => a -> BinTree a -> BinTree a -- insert element into BinTree
-
-insert :: Ord a => a -> BinTree a -> BinTree a
+insert :: Ord a => a -> BinTree a -> BinTree a -- insert element into BinTree
 insert x EmptyBT = NodeBT x EmptyBT EmptyBT
 insert x (NodeBT e lt rt) 
   | x == e = NodeBT e lt rt
@@ -81,4 +69,6 @@ insert x (NodeBT e lt rt)
 
 
 
--- list2BST :: Ord a => [a] -> BinTree a -- list to Binary Search Tree (BST)
+list2BST :: Ord a => [a] -> BinTree a -- list to Binary Search Tree (BST)
+list2BST [] = EmptyBT
+list2BST (x:xs) = insert x (list2BST xs)
